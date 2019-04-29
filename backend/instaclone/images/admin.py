@@ -4,16 +4,49 @@ from .models import Image, Like, Comment
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    pass
+
+    list_display_links = (
+        'location',
+    )
+
+    search_fields = (
+        'location',
+        'caption',
+    )
+
+    list_filter = (
+        'location',
+        'creator',
+    )
+
+    list_display = (
+        'file',
+        'location',
+        'caption',
+        'creator',
+        'create_time',
+        'update_time',
+    )
 
 
 @admin.register(Like)
 class LikeAdmin(admin.ModelAdmin):
-    pass
+    list_display = (
+        'creator',
+        'image',
+        'create_time',
+        'update_time',
+    )
 
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    pass
+    list_display = (
+        'message',
+        'creator',
+        'image',
+        'create_time',
+        'update_time',
+    )
 
 

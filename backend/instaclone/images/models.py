@@ -1,18 +1,19 @@
 from django.db import models
 from instaclone.users.models import User
+from django.utils.encoding import python_2_unicode_compatible
 
-# Create your models here.
 
-
+@python_2_unicode_compatible
 class TimestampModel(models.Model):
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    update_at = models.DateTimeField(auto_now=True)
+    create_time = models.DateTimeField(auto_now_add=True)
+    update_time = models.DateTimeField(auto_now=True)
 
     class Meta:
         abstract = True
 
 
+@python_2_unicode_compatible
 class Image(TimestampModel):
     """ Image Model """
 
@@ -21,7 +22,11 @@ class Image(TimestampModel):
     caption = models.TextField()
     creator = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
+    def __str__(self):
+        return 'Location: {} - Caption: {}'.format(self.location, self.caption)
 
+
+@python_2_unicode_compatible
 class Comment(TimestampModel):
     """ Comment Model """
 
@@ -29,9 +34,16 @@ class Comment(TimestampModel):
     creator = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     image = models.ForeignKey(Image, on_delete=models.CASCADE, null=True)
 
+    def __str__(self):
+        return self.message
 
+
+@python_2_unicode_compatible
 class Like(TimestampModel):
     """ Like Model """
 
     creator = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     image = models.ForeignKey(Image, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return 'User: {} - Image Caption: {}'.format(self.creator.username, self.image.caption)
