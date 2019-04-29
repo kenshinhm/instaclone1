@@ -30,7 +30,7 @@ class Comment(TimestampModel):
     image = models.ForeignKey(Image, on_delete=models.CASCADE, null=True)
 
 
-class Likes(TimestampModel):
+class Like(TimestampModel):
     """ Like Model """
 
     creator = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
