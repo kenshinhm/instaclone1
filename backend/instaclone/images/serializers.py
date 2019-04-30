@@ -17,8 +17,8 @@ class LikeSerializer(serializers.ModelSerializer):
 
 
 class ImageSerializer(serializers.ModelSerializer):
-    comment_set = CommentSerializer(many=True)
-    like_set = LikeSerializer(many=True)
+    comments = CommentSerializer(many=True)
+    likes = LikeSerializer(many=True)
 
     class Meta:
         model = models.Image
@@ -27,8 +27,8 @@ class ImageSerializer(serializers.ModelSerializer):
             'file',
             'location',
             'caption',
-            'comment_set',
-            'like_set',
+            'comments',
+            'likes',
         )
 
 
