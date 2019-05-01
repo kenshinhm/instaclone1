@@ -2,6 +2,7 @@ from django.db import models
 from instaclone.users.models import User
 from django.utils.encoding import python_2_unicode_compatible
 from taggit.managers import TaggableManager
+from django.utils import timezone
 
 
 @python_2_unicode_compatible
