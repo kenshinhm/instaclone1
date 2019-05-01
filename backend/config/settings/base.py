@@ -70,6 +70,7 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "rest_framework",        # Rest Framework
+    "taggit",                # Tags for the photos
 ]
 LOCAL_APPS = [
     "instaclone.users.apps.UsersAppConfig",
@@ -238,3 +239,4 @@ SOCIALACCOUNT_ADAPTER = "instaclone.users.adapters.SocialAccountAdapter"
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+TAGGIT_CASE_INSENSITIVE = True

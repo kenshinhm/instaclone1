@@ -62,5 +62,17 @@ class ImageSerializer(serializers.ModelSerializer):
         )
 
 
+class HashTagSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Image
+        fields = (
+            'id',
+            'file',
+            'comment_count',
+            'like_count',
+        )
+
+
 
 
