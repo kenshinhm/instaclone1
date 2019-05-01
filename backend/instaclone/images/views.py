@@ -15,7 +15,7 @@ class Feed(APIView):
         image_list = []
 
         for following_user in following_users:
-            user_images = following_user.images.all()[:2]
+            user_images = following_user.images.all()[:5]
 
             for user_image in user_images:
                 image_list.append(user_image)
@@ -110,6 +110,25 @@ class CommentOnImage(APIView):
             return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class DeleteMyComment(APIView):
+
+    def delete(self, request, image_id, comment_id):
+
+        user = request.user
+
+        try:
+            comment_to_delete = models.Comment.objects.get(id=comment_id, image__id=image_id, image__creator=user)
+            comment_to_delete.delete()
+        except models.Comment.DoesNotExist:
+            comment = models.Comment.objects.get(id=comment_id)
+            if comment.image.creator != user:
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
+            else:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 class Comment(APIView):
 
     def delete(self, request, comment_id):
@@ -140,9 +159,3 @@ class Search(APIView):
 
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
-
-
