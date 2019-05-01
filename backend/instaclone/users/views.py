@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.decorators import api_view
 from . import models, serializers
 
 
@@ -92,3 +93,27 @@ class GetUserFollowing(APIView):
         serializer = serializers.FollowingSerializer(user_following, many=True)
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+
+# Function based Views for GetUserFollowing
+# @api_view(['GET'])
+# def getUserFollowing(request, username):
+#
+#     if request.method == "GET":
+#
+#         try:
+#             found_users = models.User.objects.get(username=username)
+#         except models.User.DoesNotExist:
+#             return Response(status=status.HTTP_404_NOT_FOUND)
+#
+#         user_following = found_users.following.all()
+#         serializer = serializers.FollowingSerializer(user_following, many=True)
+#
+#         return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+
+
+
+
+
+

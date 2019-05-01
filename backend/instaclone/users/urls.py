@@ -6,7 +6,7 @@ from instaclone.users.views import (
     UnfollowUser,
     UserProfile,
     GetUserFollowers,
-    GetUserFollowing
+    GetUserFollowing,
     # user_list_view,
     # user_redirect_view,
     # user_update_view,
