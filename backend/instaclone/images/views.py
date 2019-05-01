@@ -14,11 +14,18 @@ class Feed(APIView):
 
         image_list = []
 
+        # append image of followers
         for following_user in following_users:
-            user_images = following_user.images.all()[:5]
+            user_images = following_user.images.all()[:2]
 
             for user_image in user_images:
                 image_list.append(user_image)
+
+        # append my image
+        my_images = user.images.all()[:2]
+
+        for image in my_images:
+            image_list.append(image)
 
         sorted_list = sorted(image_list, key=lambda image: image.create_time, reverse=True)
 
