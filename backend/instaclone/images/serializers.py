@@ -15,7 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
 
-    creator = UserSerializer()
+    creator = UserSerializer(read_only=True)
 
     class Meta:
         model = Comment
