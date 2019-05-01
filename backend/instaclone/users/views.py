@@ -66,7 +66,7 @@ class UserProfile(APIView):
 
 class GetUserFollowers(APIView):
 
-    def get(self, request, username):
+    def get(self, _, username):
 
         try:
             found_users = models.User.objects.get(username=username)
@@ -79,3 +79,16 @@ class GetUserFollowers(APIView):
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 
+class GetUserFollowing(APIView):
+
+    def get(self, _, username):
+
+        try:
+            found_users = models.User.objects.get(username=username)
+        except models.User.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        user_following = found_users.following.all()
+        serializer = serializers.FollowingSerializer(user_following, many=True)
+
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
