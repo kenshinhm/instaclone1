@@ -20,10 +20,17 @@ class Image(TimestampModel):
     file = models.ImageField()
     location = models.CharField(max_length=140)
     caption = models.TextField()
-    creator = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='images')
+
+    @property
+    def like_count(self):
+        return self.likes.all().count()
 
     def __str__(self):
         return 'Location: {} - Caption: {}'.format(self.location, self.caption)
+
+    class Meta:
+        ordering = ['-create_time']
 
 
 @python_2_unicode_compatible
