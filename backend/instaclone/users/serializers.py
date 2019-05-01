@@ -17,6 +17,18 @@ class ExploreUserSerializer(serializers.ModelSerializer):
         )
 
 
+class ListUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.User
+        fields = (
+            'id',
+            'profile_image',
+            'username',
+            'name',
+        )
+
+
 class FollowersSerializer(serializers.ModelSerializer):
 
     class Meta:
