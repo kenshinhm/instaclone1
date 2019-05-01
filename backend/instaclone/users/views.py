@@ -31,6 +31,23 @@ class FollowUser(APIView):
         return Response(status=status.HTTP_200_OK)
 
 
+class UnfollowUser(APIView):
+
+    def post(self, request, user_id, format=None):
+
+        user = request.user
+
+        try:
+            user_to_unfollow = models.User.objects.get(id=user_id)
+        except models.User.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        user.following.remove(user_to_unfollow)
+        user.save()
+
+        return Response(status=status.HTTP_200_OK)
+
+
 
 # from django.contrib.auth import get_user_model
 # from django.contrib.auth.mixins import LoginRequiredMixin
