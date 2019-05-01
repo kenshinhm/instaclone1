@@ -9,4 +9,5 @@ class NotificationAdmin(admin.ModelAdmin):
         'user_from',
         'user_to',
         'notification_type',
+        'create_time',
     )
