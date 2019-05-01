@@ -45,6 +45,17 @@ class LikeSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class SmallImageSerializer(serializers.ModelSerializer):
+
+    """Used for Notifications"""
+
+    class Meta:
+        model = Image
+        fields = (
+            'file',
+        )
+
+
 class ImageSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True)
     creator = UserSerializer()

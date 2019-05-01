@@ -17,6 +17,7 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
     path("images/", include("instaclone.images.urls", namespace="images")),
+    path("notifications/", include("instaclone.notifications.urls", namespace="notifications")),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
