@@ -39,7 +39,6 @@ class Feed(APIView):
 class ImageDetail(APIView):
 
     def get(self, request, image_id):
-
         try:
             image = models.Image.objects.get(id=image_id)
         except models.Image.DoesNotExist:
@@ -49,8 +48,18 @@ class ImageDetail(APIView):
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
-    def put(self, request, image_id):
+    def delete(self, request, image_id):
+        user = request.user
+        try:
+            image = models.Image.objects.get(id=image_id, creator=user)
+        except models.Image.DoesNotExist:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
 
+        image.delete()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def put(self, request, image_id):
         user = request.user
         try:
             image = models.Image.objects.get(id=image_id, creator=user)
