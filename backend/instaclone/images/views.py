@@ -3,6 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from . import models, serializers
 from instaclone.notifications.views import create_notification
+from instaclone.users.serializers import ListUserSerializer
+from instaclone.users.models import User
 
 
 class Feed(APIView):
@@ -49,6 +51,17 @@ class ImageDetail(APIView):
 
 
 class LikeImage(APIView):
+
+    def get(self, request, image_id, format=None):
+
+        likes = models.Like.objects.filter(image__id=image_id)
+
+        like_creators_id = likes.values('creator_id')
+        # print(likes.values())
+        users = User.objects.filter(id__in=like_creators_id)
+        serializer = ListUserSerializer(users, many=True)
+
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, image_id, format=None):
 
