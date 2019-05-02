@@ -29,8 +29,11 @@ django-extensions==2.1.6
 django-model-utils==3.1.2
 django-redis==4.10.0
 django-taggit==1.1.0
+django-taggit-serializer==0.1.7
 djangorestframework==3.9.2
+djangorestframework-jwt==1.11.0
 docutils==0.14
+docutils-stubs==0.0.21
 entrypoints==0.3
 factory-boy==2.11.1
 Faker==1.0.5
@@ -68,6 +71,7 @@ pycodestyle==2.5.0
 pycparser==2.19
 pyflakes==2.1.1
 Pygments==2.3.1
+PyJWT==1.7.1
 pylint==2.3.1
 pylint-django==2.0.9
 pylint-plugin-utils==0.5

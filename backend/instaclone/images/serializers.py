@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Comment, Like, Image
 from instaclone.users.models import User
+from taggit_serializer.serializers import (TagListSerializerField, TaggitSerializer)
 
 
 class CountImageSerializer(serializers.ModelSerializer):
@@ -70,9 +71,11 @@ class InputImageSerializer(serializers.ModelSerializer):
         )
 
 
-class ImageSerializer(serializers.ModelSerializer):
+class ImageSerializer(TaggitSerializer, serializers.ModelSerializer):
+
     comments = CommentSerializer(many=True)
     creator = UserSerializer()
+    tags = TagListSerializerField()
 
     class Meta:
         model = Image
@@ -85,6 +88,7 @@ class ImageSerializer(serializers.ModelSerializer):
             'comments',
             'like_count',
             'create_time',
+            'tags',
         )
 
 
