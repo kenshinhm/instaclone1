@@ -3,7 +3,7 @@ from .models import Comment, Like, Image
 from instaclone.users.models import User
 
 
-class UserProfileImageSerializer(serializers.ModelSerializer):
+class CountImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Image

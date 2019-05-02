@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from . import models
-from instaclone.images.serializers import UserProfileImageSerializer
+from instaclone.images.serializers import CountImageSerializer
 
 
 class ExploreUserSerializer(serializers.ModelSerializer):
@@ -55,7 +55,10 @@ class FollowingSerializer(serializers.ModelSerializer):
 
 class UserProfileSerializer(serializers.ModelSerializer):
 
-    images = UserProfileImageSerializer(many=True)
+    images = CountImageSerializer(many=True)
+    post_count = serializers.ReadOnlyField()
+    followers_count = serializers.ReadOnlyField()
+    following_count = serializers.ReadOnlyField()
 
     class Meta:
         model = models.User
