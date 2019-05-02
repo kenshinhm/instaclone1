@@ -49,6 +49,23 @@ class ImageDetail(APIView):
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
+    def put(self, request, image_id):
+
+        user = request.user
+        try:
+            image = models.Image.objects.get(id=image_id, creator=user)
+        except models.Image.DoesNotExist:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+        # partial=True will make the partial update of field possible
+        serializer = serializers.InputImageSerializer(image, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save(creator=user)
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class LikeImage(APIView):
 

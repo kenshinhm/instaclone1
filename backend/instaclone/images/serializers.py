@@ -56,6 +56,20 @@ class SmallImageSerializer(serializers.ModelSerializer):
         )
 
 
+class InputImageSerializer(serializers.ModelSerializer):
+
+    # To make some field required=false
+    # file = serializers.FileField(required=False)
+
+    class Meta:
+        model = Image
+        fields = (
+            'file',
+            'location',
+            'caption',
+        )
+
+
 class ImageSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True)
     creator = UserSerializer()
