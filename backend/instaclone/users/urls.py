@@ -9,6 +9,7 @@ from instaclone.users.views import (
     GetUserFollowing,
     SearchUser,
     ChangePassword,
+    FacebookLogin,
     # user_list_view,
     # user_redirect_view,
     # user_update_view,
@@ -25,6 +26,7 @@ urlpatterns = [
     path("<slug:username>/followers/", view=GetUserFollowers.as_view(), name="get_user_followers"),
     path("<slug:username>/following/", view=GetUserFollowing.as_view(), name="get_user_following"),
     path("<slug:username>/password/", view=ChangePassword.as_view(), name="change_password"),
+    path("login/facebook/", view=FacebookLogin.as_view(), name="fb_login"),
 
     # path("", view=user_list_view, name="list"),
     # path("~redirect/", view=user_redirect_view, name="redirect"),

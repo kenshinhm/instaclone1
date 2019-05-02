@@ -69,6 +69,7 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "allauth.socialaccount.providers.facebook",
     "rest_framework",        # Rest Framework
     "rest_framework.authtoken",
     "taggit",                # Tags for the photos
