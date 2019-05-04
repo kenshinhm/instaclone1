@@ -3,7 +3,6 @@ import style from './App.module.scss';
 import {Provider} from "react-redux";
 import store from "./redux/configureStore";
 
-// console.log(store.getState());
 
 function App() {
     return (
