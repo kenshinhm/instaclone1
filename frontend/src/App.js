@@ -1,17 +1,32 @@
 import React from 'react';
-import style from './App.module.scss';
-import {Provider} from "react-redux";
-import store from "./redux/configureStore";
-
+import {Route} from "react-router-dom";
 
 function App() {
     return (
-        <Provider store={store}>
-            <div className={style.app}>
-                Hello World
-            </div>
-        </Provider>
+        <div>
+            <Header/>
+        </div>
     );
 }
+
+const Header = () => {
+    return (
+        <header>
+            <h1>My Contacts</h1>
+            <Route exact={true} path='/' component={Welcome}/>
+            <Route path='/contacts' component={Contacts}/>
+        </header>
+    );
+};
+
+const Welcome = () => <h1>Welcome to the best contact app!</h1>;
+
+const Contacts = () => (
+    <ul>
+        <li>Lynn</li>
+        <li>Jisu</li>
+        <li>Japan</li>
+    </ul>
+);
 
 export default App;

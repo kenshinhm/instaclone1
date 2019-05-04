@@ -18,4 +18,4 @@ const reducer = combineReducers({
 let store = initialState =>
     createStore(reducer, applyMiddleware(...middlewares));
 
-export default store();
+export default store;
