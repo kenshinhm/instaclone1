@@ -15,9 +15,17 @@
         @media (min-width: 37.5em) {
             @content;
         }
-    } @else if $point == mobileonly {
+    } @else if $point == phone {
         @media (max-width: 37.5em) {
             @content;
         }
+    }
+}
+
+@mixin boxBorder($radius) {
+    border: 1px solid #e6e6e6;
+    background-color: white;
+    @if $radius == yes {
+        border-radius: 5px;
     }
 }

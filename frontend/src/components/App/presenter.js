@@ -4,6 +4,7 @@ import styles from './styles.scss';
 import Footer from "../Footer";
 import PropTypes from "prop-types";
 import Auth from "../Auth/presenter";
+import Container from "../Auth/container"
 
 
 const App = props => [
@@ -25,7 +26,7 @@ const PrivateRoutes = props => (
 
 const PublicRoutes = props => (
     <Switch>
-        <Route exact path='/' component={Auth}/>
+        <Route exact path='/' component={Container}/>
         <Route exact path='/forgot' render={() => "password"}/>
     </Switch>
 );
