@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 // import {BrowserRouter} from "react-router-dom";
 import {ConnectedRouter} from 'connected-react-router';
 import store, {history} from "./redux/configureStore";
 import {Provider} from "react-redux";
 import I18n from 'redux-i18n'
 import {translation} from "./translations";
+import App from "./components/App";
 
 ReactDOM.render(
     <Provider store={store()}>
