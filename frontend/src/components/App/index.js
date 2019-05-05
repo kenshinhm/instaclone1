@@ -1,15 +1,11 @@
-import React from 'react';
-import {Link, Route} from "react-router-dom";
-import styles from './styles.scss';
-import Footer from "../Footer";
+import {connect} from 'react-redux';
+import Container from './container';
 
+const mapStateToProps = (state, ownProps) => {
+    const {user} = state;
+    return {
+        isLoggedIn: user.isLoggedIn
+    };
+};
 
-function App() {
-    return (
-        <div>
-            <Footer/>
-        </div>
-    );
-}
-
-export default App;
+export default connect(mapStateToProps)(Container);

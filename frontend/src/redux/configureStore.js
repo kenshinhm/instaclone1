@@ -1,5 +1,5 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import users from "./modules/users";
+import user from "./modules/user";
 import thunk from "redux-thunk";
 import {createBrowserHistory} from "history";
 import {routerMiddleware, connectRouter} from 'connected-react-router';
@@ -18,7 +18,7 @@ if (env === 'development') {
 }
 
 const reducer = combineReducers({
-    users,
+    user,
     router: connectRouter(history),
     i18nState
 });
