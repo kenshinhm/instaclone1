@@ -1,8 +1,6 @@
 import React from 'react';
 import styles from './styles.scss';
 
-console.log(styles);
-
 const Footer = (props, context) => (
     <footer className={styles.footer}>
         <div className={styles.column}>
