@@ -5,12 +5,15 @@ import App from './App';
 import {ConnectedRouter} from 'connected-react-router';
 import store, {history} from "./redux/configureStore";
 import {Provider} from "react-redux";
-
+import I18n from 'redux-i18n'
+import {translation} from "./translations";
 
 ReactDOM.render(
     <Provider store={store()}>
         <ConnectedRouter history={history}>
-            <App/>
+            <I18n translations={translation} initialLang="en" fallbackLang="en">
+                <App/>
+            </I18n>
         </ConnectedRouter>
     </Provider>,
     document.getElementById('root')
