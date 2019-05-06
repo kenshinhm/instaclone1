@@ -1,17 +1,25 @@
 import formStyles from "shared/formStyles.scss";
-import Ionicon from "react-ionicons";
+// import Ionicon from "react-ionicons";
 import React from "react";
 import PropTypes from "prop-types";
+import FacebookLogin from "react-facebook-login";
 
 export const SignupForm = props => (
     <div className={formStyles.formComponent}>
         <h3 className={formStyles.signupHeader}>
             Sign up to see photos and videos from your friends.
         </h3>
-        <button className={formStyles.button}>
-            <Ionicon icon="logo-facebook" fontSize="20px" color="white"/> Log in with
-                                                                          Facebook
-        </button>
+        <FacebookLogin
+            appId="1009671839203165"
+            autoLoad={false}
+            fields="name,email,picture"
+            callback={props.facebookLogin}
+            cssClass={formStyles.button}
+            icon='fa-facebook-official'
+        />
+        {/*<button className={formStyles.button}>*/}
+        {/*    <Ionicon icon="logo-facebook" fontSize="20px" color="white"/> Log in with Facebook*/}
+        {/*</button>*/}
         <span className={formStyles.divider}>or</span>
         <form className={formStyles.form} onSubmit={props.onSubmit}>
             <input type="email" placeholder="Email" className={formStyles.textInput}
@@ -37,6 +45,7 @@ SignupForm.propTypes = {
     password: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
+    facebookLogin: PropTypes.func.isRequired,
 };
 
 export default SignupForm;
