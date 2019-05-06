@@ -2,7 +2,6 @@ import formStyles from "shared/formStyles.scss";
 import Ionicon from "react-ionicons";
 import React from "react";
 import PropTypes from "prop-types";
-import LoginForm from "../LoginForm/presenter";
 
 export const SignupForm = props => (
     <div className={formStyles.formComponent}>

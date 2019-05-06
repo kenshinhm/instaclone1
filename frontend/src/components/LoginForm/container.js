@@ -13,7 +13,9 @@ class Container extends React.Component {
         return (
             <LoginFom username={username} password={password}
                       handleInputChange={this._handleInputChange}
-                      handleSubmit={this._handleSubmit}/>
+                      handleSubmit={this._handleSubmit}
+                      handleFacebookLogin={this._handleFacebookLogin}
+            />
         );
     }
 
@@ -30,6 +32,11 @@ class Container extends React.Component {
         event.preventDefault();
         //redux action
     };
+
+    _handleFacebookLogin = response => {
+        console.log(response);
+        //redux action
+    }
 }
 
 export default Container;

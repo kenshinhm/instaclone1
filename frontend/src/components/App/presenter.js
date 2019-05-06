@@ -1,6 +1,6 @@
 import React from 'react';
-import {Link, Route, Switch} from "react-router-dom";
-import styles from './styles.scss';
+import {Route, Switch} from "react-router-dom";
+import './styles.scss';
 import Footer from "../Footer";
 import PropTypes from "prop-types";
 import Auth from "../Auth";
