@@ -1,6 +1,16 @@
-export const translation = {
-    kr: {
-        "Login in": "로그인",
-        "About Us": "소개"
-    }
-};
+export const translations = {
+  'kr': {
+    'About Us': '소개',
+    'Support': '지원',
+    'Blog': '블로그',
+    'Press': '',
+    'API': '',
+    'Jobs': '',
+    'Privacy': '보안',
+    'Terms': '',
+    'Directory': '',
+    'Language': '언어',
+  },
+  'options': {
+  },
+}
