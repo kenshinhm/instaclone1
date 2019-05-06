@@ -1,6 +1,8 @@
 import formStyles from "shared/formStyles.scss";
 import Ionicon from "react-ionicons";
 import React from "react";
+import PropTypes from "prop-types";
+import LoginForm from "../LoginForm/presenter";
 
 export const SignupForm = props => (
     <div className={formStyles.formComponent}>
@@ -12,19 +14,15 @@ export const SignupForm = props => (
                                                                           Facebook
         </button>
         <span className={formStyles.divider}>or</span>
-        <form className={formStyles.form}>
-            <input type="email" placeholder="Email" className={formStyles.textInput}/>
-            <input type="text" placeholder="Full Name" className={formStyles.textInput}/>
-            <input
-                type="username"
-                placeholder="Username"
-                className={formStyles.textInput}
-            />
-            <input
-                type="password"
-                placeholder="Password"
-                className={formStyles.textInput}
-            />
+        <form className={formStyles.form} onSubmit={props.onSubmit}>
+            <input type="email" placeholder="Email" className={formStyles.textInput}
+                   value={props.email} onChange={props.onChange} name='email'/>
+            <input type="text" placeholder="Full Name" className={formStyles.textInput}
+                   value={props.fullname} onChange={props.onChange} name='fullname'/>
+            <input type="username" placeholder="Username" className={formStyles.textInput}
+                   value={props.username} onChange={props.onChange} name='username'/>
+            <input type="password" placeholder="Password" className={formStyles.textInput}
+                   value={props.password} onChange={props.onChange} name='password'/>
             <input type="submit" value="Sign up" className={formStyles.button}/>
         </form>
         <p className={formStyles.terms}>
@@ -32,5 +30,14 @@ export const SignupForm = props => (
         </p>
     </div>
 );
+
+SignupForm.propTypes = {
+    email: PropTypes.string.isRequired,
+    fullname: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+};
 
 export default SignupForm;
