@@ -5,21 +5,22 @@ import * as PropTypes from "prop-types";
 class Container extends React.Component {
 
     static propTypes = {
-        facebookLogin: PropTypes.func.isRequired
+        facebookLogin: PropTypes.func.isRequired,
+        createAccount: PropTypes.func.isRequired,
     };
 
     state = {
         email: "",
-        fullname: "",
+        name: "",
         username: "",
         password: "",
     };
 
     render() {
-        const {email, fullname, username, password} = this.state;
+        const {email, name, username, password} = this.state;
 
         return (
-            <SignupForm email={email} fullname={fullname} username={username} password={password}
+            <SignupForm email={email} name={name} username={username} password={password}
                         onChange={this._onChange} onSubmit={this._onSubmit} facebookLogin={this._facebookLogin}/>
         );
     }
@@ -33,13 +34,15 @@ class Container extends React.Component {
 
     _onSubmit = event => {
         event.preventDefault();
-        console.log(this.state);
+        const {username, password, email, name} = this.state;
+        const {createAccount} = this.props;
+        createAccount(username, password, email, name);
     };
 
     _facebookLogin = response => {
+        //redux action
         const {facebookLogin} = this.props;
         facebookLogin(response.accessToken);
-        //redux action
     }
 
 }

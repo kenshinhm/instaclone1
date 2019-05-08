@@ -25,7 +25,7 @@ export const SignupForm = props => (
             <input type="email" placeholder="Email" className={formStyles.textInput}
                    value={props.email} onChange={props.onChange} name='email'/>
             <input type="text" placeholder="Full Name" className={formStyles.textInput}
-                   value={props.fullname} onChange={props.onChange} name='fullname'/>
+                   value={props.name} onChange={props.onChange} name='name'/>
             <input type="username" placeholder="Username" className={formStyles.textInput}
                    value={props.username} onChange={props.onChange} name='username'/>
             <input type="password" placeholder="Password" className={formStyles.textInput}
@@ -40,7 +40,7 @@ export const SignupForm = props => (
 
 SignupForm.propTypes = {
     email: PropTypes.string.isRequired,
-    fullname: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
