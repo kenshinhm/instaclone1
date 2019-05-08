@@ -4,8 +4,8 @@ import './styles.scss';
 import Footer from "../Footer";
 import PropTypes from "prop-types";
 import Auth from "../Auth";
-import Navigation from "components/Navigation/presenter";
-import Feed from "components/Feed/presenter";
+import Navigation from "components/Navigation";
+import Feed from "components/Feed";
 
 
 const App = props => [
