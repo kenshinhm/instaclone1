@@ -5,7 +5,8 @@ import PropTypes from "prop-types";
 class Container extends React.Component {
 
     static propTypes = {
-        facebookLogin: PropTypes.func.isRequired
+        facebookLogin: PropTypes.func.isRequired,
+        usernameLogin: PropTypes.func.isRequired,
     };
 
     state = {
@@ -36,12 +37,15 @@ class Container extends React.Component {
     _handleSubmit = event => {
         event.preventDefault();
         //redux action
+        const {username, password} = this.state;
+        const {usernameLogin} = this.props;
+        usernameLogin(username, password);
     };
 
     _handleFacebookLogin = response => {
+        //redux action
         const {facebookLogin} = this.props;
         facebookLogin(response.accessToken);
-        //redux action
     }
 }
 

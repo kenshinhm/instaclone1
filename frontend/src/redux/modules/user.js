@@ -1,15 +1,15 @@
-// actions
+//action type
 const SAVE_TOKEN = "SAVE_TOKEN";
 
 //action creators
 function saveToken(token) {
     return {
         type: SAVE_TOKEN,
-        token
+        token: token
     }
 }
 
-// API actions
+// API thunk
 function facebookLogin(access_token) {
     return dispatch => {
         fetch("/users/login/facebook/", {
@@ -24,7 +24,28 @@ function facebookLogin(access_token) {
             .then(response => response.json())
             .then(json => {
                 if (json.token) {
-                    localStorage.setItem('jwt', json.token);
+                    dispatch(saveToken(json.token));
+                }
+            })
+            .catch(err => console.log(err));
+    }
+}
+
+function usernameLogin(username, password) {
+    return function (dispatch) {
+        fetch("/rest-auth/login/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username,
+                password
+            })
+        })
+            .then(response => response.json())
+            .then(json => {
+                if (json.token) {
                     dispatch(saveToken(json.token));
                 }
             })
@@ -40,7 +61,8 @@ const initialState = {
 
 // exports
 const actionCreators = {
-    facebookLogin
+    facebookLogin,
+    usernameLogin
 };
 
 export {actionCreators};
@@ -48,6 +70,7 @@ export {actionCreators};
 // reducer functions
 function applySetToken(state, action) {
     const {token} = action;
+    localStorage.setItem('jwt', token);
     return {
         ...state,
         isLoggedIn: true,
