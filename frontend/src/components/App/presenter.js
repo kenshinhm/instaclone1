@@ -4,10 +4,11 @@ import './styles.scss';
 import Footer from "../Footer";
 import PropTypes from "prop-types";
 import Auth from "../Auth";
+import Navigation from "components/Navigation/presenter";
 
 
 const App = props => [
-    //Nav
+    props.isLoggedIn ? <Navigation key={1}/> : null,
     props.isLoggedIn ? <PrivateRoutes key={2}/> : <PublicRoutes key={2}/>,
     <Footer key={3}/>
 ];
