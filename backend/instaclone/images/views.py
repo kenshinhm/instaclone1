@@ -64,7 +64,7 @@ class ImageDetail(APIView):
         try:
             image = models.Image.objects.get(id=image_id, creator=user)
         except models.Image.DoesNotExist:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
         image.delete()
 
@@ -75,7 +75,7 @@ class ImageDetail(APIView):
         try:
             image = models.Image.objects.get(id=image_id, creator=user)
         except models.Image.DoesNotExist:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
         # partial=True will make the partial update of field possible
         serializer = serializers.InputImageSerializer(image, data=request.data, partial=True)
@@ -193,7 +193,7 @@ class DeleteMyComment(APIView):
         except models.Comment.DoesNotExist:
             comment = models.Comment.objects.get(id=comment_id)
             if comment.image.creator != user:
-                return Response(status=status.HTTP_401_UNAUTHORIZED)
+                return Response(status=status.HTTP_400_BAD_REQUEST)
             else:
                 return Response(status=status.HTTP_404_NOT_FOUND)
 
