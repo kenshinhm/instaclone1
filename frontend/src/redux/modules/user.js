@@ -1,11 +1,18 @@
 //action type
 const SAVE_TOKEN = "SAVE_TOKEN";
+const LOGOUT = "LOGOUT";
 
 //action creators
 function saveToken(token) {
     return {
         type: SAVE_TOKEN,
         token: token
+    }
+}
+
+function logout() {
+    return {
+        type: LOGOUT
     }
 }
 
@@ -92,6 +99,7 @@ const actionCreators = {
     facebookLogin,
     usernameLogin,
     createAccount,
+    logout
 };
 
 export {actionCreators};
@@ -107,11 +115,21 @@ function applySetToken(state, action) {
     };
 }
 
+function applyLogout(state, action) {
+    localStorage.removeItem("jwt");
+    return {
+        isLoggedIn: false
+    }
+
+}
+
 // reducer
 function reducer(state = initialState, action) {
     switch (action.type) {
         case SAVE_TOKEN:
             return applySetToken(state, action);
+        case LOGOUT:
+            return applyLogout(state, action);
         default:
             return state;
     }
