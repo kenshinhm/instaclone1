@@ -6,14 +6,20 @@ import Loading from "components/Loading";
 const Feed = (props) => {
     if (props.loading) {
         return <LoadingFeed/>
-    } else {
-        return "Feed";
+    } else if (props.feed) {
+        return <RenderFeed feed={props.feed}/>
     }
 };
 
 const LoadingFeed = props => (
     <div className={styles.feed}>
         <Loading/>
+    </div>
+);
+
+const RenderFeed = props => (
+    <div className={styles.feed}>
+        {props.feed.map(post => post.caption)}
     </div>
 );
 

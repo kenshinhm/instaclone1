@@ -14,13 +14,27 @@ class Container extends React.Component {
 
     componentDidMount() {
         const {getFeed} = this.props;
-        getFeed();
+        if (this.props.feed) {
+            this.setState({
+                loading: false,
+            })
+        } else {
+            getFeed();
+        }
     }
 
+    componentWillReceiveProps(nextProps, nextContext) {
+        if (nextProps.feed) {
+            this.setState({
+                loading: false,
+            })
+        }
+    }
 
     render() {
+        const {feed} = this.props;
         return (
-            <Feed {...this.state}/>
+            <Feed {...this.state} feed={feed}/>
         );
     }
 }
