@@ -9,7 +9,6 @@ from rest_framework_jwt.views import obtain_jwt_token
 from instaclone import views
 
 urlpatterns = [
-    # path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path("about/", TemplateView.as_view(template_name="pages/about.html"), name="about"),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
@@ -22,9 +21,13 @@ urlpatterns = [
     # url(r'^api-token-auth/', obtain_jwt_token),
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
-    url(r'^', views.ReactAppView.as_view()),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += [
+    url(r'^', views.ReactAppView.as_view()),
+]
+
 
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit
