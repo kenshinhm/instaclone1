@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import PhotoActions from "components/PhotoActions";
 import PhotoComments from "components/PhotoComments";
 import Timestamp from "components/Timestamp";
+import CommentBox from "components/CommentBox";
 
 const FeedPhoto = (props, context) => {
     console.log(props);
@@ -25,6 +26,7 @@ const FeedPhoto = (props, context) => {
                     creator={props.creator.username}
                     comments={props.comments}/>
                 <Timestamp time={props.natural_time}/>
+                <CommentBox/>
             </div>
         </div>
     );
