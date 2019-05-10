@@ -7,10 +7,10 @@ const PhotoActions = (props, context) => (
     <div>
         <div>
             <span>
-                <Ionicon icon='ios-heart-outline' fontSize='28px' color='black'/>
+                <Ionicon icon='ios-heart-outline' fontSize='24px' color='black'/>
             </span>
             <span>
-                <Ionicon icon='ios-text-outline' fontSize='28px' color='black'/>
+                <Ionicon icon='ios-text-outline' fontSize='24px' color='black'/>
             </span>
         </div>
         <span>{props.number} {props.number === 1 ? context.t("like") : context.t("likes")}</span>
