@@ -3,6 +3,7 @@ from instaclone.users.models import User
 from django.utils.encoding import python_2_unicode_compatible
 from taggit.managers import TaggableManager
 from django.utils import timezone
+from django.contrib.humanize.templatetags.humanize import naturaltime
 
 
 @python_2_unicode_compatible
@@ -32,6 +33,10 @@ class Image(TimestampModel):
     @property
     def comment_count(self):
         return self.comments.all().count()
+
+    @property
+    def natural_time(self):
+        return naturaltime(self.create_time)
 
     def __str__(self):
         return 'Location: {} - Caption: {}'.format(self.location, self.caption)

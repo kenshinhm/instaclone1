@@ -87,7 +87,7 @@ class ImageSerializer(TaggitSerializer, serializers.ModelSerializer):
             'caption',
             'comments',
             'like_count',
-            'create_time',
+            'natural_time',
             'tags',
         )
 
