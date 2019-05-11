@@ -93,6 +93,31 @@ function getFeed() {
     };
 }
 
+function commentPhoto(photoId, message) {
+    console.log(JSON.stringify({message}));
+    return (dispatch, getState) => {
+        const {user: {token}} = getState();
+        fetch(`/images/${photoId}/comment/`, {
+            method: "POST",
+            headers: {
+                "Authorization": `JWT ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                message
+            })
+        })
+            .then(response => {
+                if (response.status === 401) {
+                    dispatch(userActions.logout());
+                }
+                return response.json();
+            })
+            .catch(err => console.log(err));
+    };
+
+}
+
 //initial state
 const initialState = {};
 
@@ -151,7 +176,8 @@ function applyUnlikePhoto(state, action) {
 const actionCreators = {
     getFeed,
     likePhoto,
-    unlikePhoto
+    unlikePhoto,
+    commentPhoto
 };
 
 export {actionCreators};

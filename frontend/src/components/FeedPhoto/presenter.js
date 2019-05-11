@@ -27,7 +27,7 @@ const FeedPhoto = (props, context) => {
                                creator={props.creator.username}
                                comments={props.comments}/>
                 <Timestamp time={props.natural_time}/>
-                <CommentBox/>
+                <CommentBox photoId={props.id}/>
             </div>
         </div>
     );
