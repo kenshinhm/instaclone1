@@ -4,9 +4,29 @@ import CommentBox from "components/CommentBox/presenter.js";
 
 class Container extends React.Component {
 
+    state = {
+        comment: ""
+    };
+
     render() {
-        return <CommentBox/>;
+        return <CommentBox {...this.state}
+                           handleInputChange={this._handleInputChange}
+                           handleKeyPress={this._handleKeyPress}/>;
     }
+
+    _handleInputChange = (event) => {
+        const {target: {value}} = event;
+        this.setState({
+            comment: value
+        });
+    };
+
+    _handleKeyPress = event => {
+        const {key} = event;
+        if (key === "Enter") {
+            event.preventDefault();
+        }
+    };
 }
 
 export default Container;
