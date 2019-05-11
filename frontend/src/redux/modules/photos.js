@@ -5,6 +5,7 @@ import {actionCreators as userActions} from "redux/modules/user";
 const SET_FEED = "SET_FEED";
 const LIKE_PHOTO = "LIKE_PHOTO";
 const UNLIKE_PHOTO = "UNLIKE_PHOTO";
+const ADD_COMMENT = "ADD_COMMENT";
 
 //action creators
 function feedAction(feed) {
@@ -25,6 +26,14 @@ function unlikePhotoAction(photoId) {
     return {
         type: UNLIKE_PHOTO,
         photoId
+    };
+}
+
+function addComment(photoId, comment) {
+    return {
+        type: ADD_COMMENT,
+        photoId,
+        comment
     };
 }
 
@@ -94,7 +103,7 @@ function getFeed() {
 }
 
 function commentPhoto(photoId, message) {
-    console.log(JSON.stringify({message}));
+    // console.log(JSON.stringify({message}));
     return (dispatch, getState) => {
         const {user: {token}} = getState();
         fetch(`/images/${photoId}/comment/`, {
@@ -113,6 +122,11 @@ function commentPhoto(photoId, message) {
                 }
                 return response.json();
             })
+            .then(json => {
+                if (json.message) {
+                    dispatch(addComment(photoId, json));
+                }
+            })
             .catch(err => console.log(err));
     };
 
@@ -130,6 +144,8 @@ function reducer(state = initialState, action) {
             return applyLikePhoto(state, action);
         case UNLIKE_PHOTO:
             return applyUnlikePhoto(state, action);
+        case ADD_COMMENT:
+            return applyAddComment(state, action);
         default:
             return state;
     }
@@ -171,6 +187,23 @@ function applyUnlikePhoto(state, action) {
     return {...state, feed: updateFeed};
 }
 
+function applyAddComment(state, action) {
+    const {photoId, comment} = action;
+    const {feed} = state;
+
+    const updateFeed = feed.map(photo => {
+        if (photo.id === photoId) {
+            return {
+                ...photo,
+                comments: [...photo.comments, comment]
+            };
+        } else {
+            return {...photo};
+        }
+    });
+    return {...state, feed: updateFeed};
+}
+
 
 //exports
 const actionCreators = {
@@ -184,5 +217,6 @@ export {actionCreators};
 
 //default reducer export
 export default reducer;
+
 
 
