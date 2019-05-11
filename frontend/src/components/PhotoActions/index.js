@@ -1,5 +1,6 @@
 import {connect} from 'react-redux';
 import Container from "./container";
+import {actionCreators as photoAction} from 'redux/modules/photos.js';
 
 // const mapStateToProps = (state, ownProps) => {
 //     const {photos: {feed}} = state;
@@ -8,12 +9,18 @@ import Container from "./container";
 //     }
 // };
 //
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//     return {
-//         getFeed: () => {
-//             dispatch(photoActions.getFeed());
-//         },
-//     }
-// };
+const mapDispatchToProps = (dispatch, ownProps) => {
+    // console.log(ownProps);
 
-export default connect()(Container);
+    return {
+        handleHeartClick: () => {
+            if (ownProps.isLiked) {
+                dispatch(photoAction.unlikePhoto(ownProps.photoId));
+            } else {
+                dispatch(photoAction.likePhoto(ownProps.photoId));
+            }
+        }
+    };
+};
+
+export default connect(null, mapDispatchToProps)(Container);
