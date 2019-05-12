@@ -1,5 +1,6 @@
 import {connect} from 'react-redux';
 import Container from "./container";
+import {actionCreators as userActions} from 'redux/modules/user';
 
 // const mapStateToProps = (state, ownProps) => {
 //     const {photos: {feed}} = state;
@@ -8,12 +9,12 @@ import Container from "./container";
 //     }
 // };
 //
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//     return {
-//         getFeed: () => {
-//             dispatch(photoActions.getFeed());
-//         },
-//     }
-// };
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        getPhotoLikes: () => {
+            dispatch(userActions.getPhotoLikes(ownProps.id));
+        },
+    };
+};
 
-export default connect()(Container);
+export default connect(null, mapDispatchToProps)(Container);
