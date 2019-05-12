@@ -26,14 +26,14 @@ function setUserList(userList) {
     };
 }
 
-function setFollowerUser(userId) {
+function setFollowUser(userId) {
     return {
         type: FOLLOW_USER,
         userId
     };
 }
 
-function setUnfollowerUser(userId) {
+function setUnfollowUser(userId) {
     return {
         type: UNFOLLOW_USER,
         userId
@@ -133,13 +133,41 @@ function getPhotoLikes(photoId) {
 
 function followUser(userId) {
     return (dispatch, getState) => {
-        dispatch(setFollowerUser(userId));
+        dispatch(setFollowUser(userId));
+        const {user: {token}} = getState();
+        fetch(`/users/${userId}/follow/`, {
+            method: "POST",
+            headers: {
+                Authorization: `JWT ${token}`,
+                "Content-Type": "application/json"
+            }
+        }).then(response => {
+            if (response.status === 401) {
+                dispatch(logout());
+            } else if (!response.ok) {
+                dispatch(setUnfollowUser(userId));
+            }
+        });
     };
 }
 
 function unfollowUser(userId) {
     return (dispatch, getState) => {
-        dispatch(setUnfollowerUser(userId));
+        dispatch(setUnfollowUser(userId));
+        const {user: {token}} = getState();
+        fetch(`/users/${userId}/unfollow/`, {
+            method: "POST",
+            headers: {
+                Authorization: `JWT ${token}`,
+                "Content-Type": "application/json"
+            }
+        }).then(response => {
+            if (response.status === 401) {
+                dispatch(logout());
+            } else if (!response.ok) {
+                dispatch(setFollowUser(userId));
+            }
+        });
     };
 }
 
