@@ -4,6 +4,7 @@ from instaclone.images.serializers import CountImageSerializer
 
 
 class ExploreUserSerializer(serializers.ModelSerializer):
+    is_following = serializers.SerializerMethodField()
 
     class Meta:
         model = models.User
@@ -14,10 +15,20 @@ class ExploreUserSerializer(serializers.ModelSerializer):
             'name',
             'following',
             'followers',
+            'is_following',
         )
+
+    def get_is_following(self, obj):
+        if 'request' in self.context:
+            request = self.context['request']
+            if obj in request.user.following.all():
+                return True
+
+        return False
 
 
 class ListUserSerializer(serializers.ModelSerializer):
+    is_following = serializers.SerializerMethodField()
 
     class Meta:
         model = models.User
@@ -26,22 +37,41 @@ class ListUserSerializer(serializers.ModelSerializer):
             'profile_image',
             'username',
             'name',
+            'is_following',
         )
 
+    def get_is_following(self, obj):
+        if 'request' in self.context:
+            request = self.context['request']
+            if obj in request.user.following.all():
+                return True
 
-class FollowersSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = models.User
-        fields = (
-            'id',
-            'profile_image',
-            'username',
-            'name',
-        )
+        return False
 
 
 class FollowingSerializer(serializers.ModelSerializer):
+    is_following = serializers.SerializerMethodField()
+
+    class Meta:
+        model = models.User
+        fields = (
+            'id',
+            'profile_image',
+            'username',
+            'name',
+            'is_following',
+        )
+
+    def get_is_following(self, obj):
+        if 'request' in self.context:
+            request = self.context['request']
+            if obj in request.user.following.all():
+                return True
+
+        return False
+
+
+class FollowersSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.User
