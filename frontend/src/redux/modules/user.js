@@ -2,6 +2,8 @@
 const SAVE_TOKEN = "SAVE_TOKEN";
 const LOGOUT = "LOGOUT";
 const SET_USER_LIST = "SET_USER_LIST";
+const FOLLOW_USER = "FOLLOW_USER";
+const UNFOLLOW_USER = "UNFOLLOW_USER";
 
 //action creators
 function saveToken(token) {
@@ -21,6 +23,20 @@ function setUserList(userList) {
     return {
         type: SET_USER_LIST,
         userList,
+    };
+}
+
+function setFollowerUser(userId) {
+    return {
+        type: FOLLOW_USER,
+        userId
+    };
+}
+
+function setUnfollowerUser(userId) {
+    return {
+        type: UNFOLLOW_USER,
+        userId
     };
 }
 
@@ -115,6 +131,18 @@ function getPhotoLikes(photoId) {
     };
 }
 
+function followUser(userId) {
+    return (dispatch, getState) => {
+        dispatch(setFollowerUser(userId));
+    };
+}
+
+function unfollowUser(userId) {
+    return (dispatch, getState) => {
+        dispatch(setUnfollowerUser(userId));
+    };
+}
+
 
 // initial state
 
@@ -130,6 +158,8 @@ const actionCreators = {
     createAccount,
     logout,
     getPhotoLikes,
+    followUser,
+    unfollowUser,
 };
 
 export {actionCreators};
@@ -160,6 +190,30 @@ function applySetUserList(state, action) {
     };
 }
 
+function applyFollowUser(state, action) {
+    const {userId} = action;
+    const {userList} = state;
+    const updatedUserList = userList.map(user => {
+        if (user.id === userId) {
+            return {...user, is_following: true};
+        }
+        return user;
+    });
+    return {...state, userList: updatedUserList};
+}
+
+function applyUnFollowUser(state, action) {
+    const {userId} = action;
+    const {userList} = state;
+    const updatedUserList = userList.map(user => {
+        if (user.id === userId) {
+            return {...user, is_following: false};
+        }
+        return user;
+    });
+    return {...state, userList: updatedUserList};
+}
+
 // reducer
 function reducer(state = initialState, action) {
     switch (action.type) {
@@ -169,6 +223,10 @@ function reducer(state = initialState, action) {
             return applyLogout(state, action);
         case SET_USER_LIST:
             return applySetUserList(state, action);
+        case FOLLOW_USER:
+            return applyFollowUser(state, action);
+        case UNFOLLOW_USER:
+            return applyUnFollowUser(state, action);
         default:
             return state;
     }
