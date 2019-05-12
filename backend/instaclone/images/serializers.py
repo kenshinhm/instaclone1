@@ -114,6 +114,7 @@ class HashTagSerializer(serializers.ModelSerializer):
             'file',
             'comment_count',
             'like_count',
+            'caption',
         )
 
 
