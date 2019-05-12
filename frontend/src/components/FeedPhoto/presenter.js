@@ -6,7 +6,6 @@ import PhotoComments from "components/PhotoComments";
 import Timestamp from "components/Timestamp";
 import CommentBox from "components/CommentBox";
 import UserList from "components/UserList";
-import Feed from "components/Feed/presenter.js";
 
 const FeedPhoto = (props, context) => {
     return (
@@ -76,6 +75,14 @@ FeedPhoto.propTypes = {
     closeLikes: PropTypes.func.isRequired,
 
     seeingLikes: PropTypes.bool.isRequired,
+
+    likes: PropTypes.arrayOf(
+        PropTypes.shape({
+            profile_image: PropTypes.string,
+            username: PropTypes.string.isRequired,
+            name: PropTypes.string
+        }).isRequired
+    )
 };
 
 export default FeedPhoto;

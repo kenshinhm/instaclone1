@@ -1,6 +1,6 @@
 import React from 'react';
 import * as PropTypes from "prop-types";
-import CommentBox from "components/CommentBox/presenter.js";
+import CommentBox from "./presenter";
 
 class Container extends React.Component {
 
