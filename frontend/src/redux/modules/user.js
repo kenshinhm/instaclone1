@@ -4,6 +4,7 @@ const LOGOUT = "LOGOUT";
 const SET_USER_LIST = "SET_USER_LIST";
 const FOLLOW_USER = "FOLLOW_USER";
 const UNFOLLOW_USER = "UNFOLLOW_USER";
+const SET_IMAGE_LIST = "SET_IMAGE_LIST";
 
 //action creators
 function saveToken(token) {
@@ -37,6 +38,13 @@ function setUnfollowUser(userId) {
     return {
         type: UNFOLLOW_USER,
         userId
+    };
+}
+
+function setImageList(imageList) {
+    return {
+        type: SET_IMAGE_LIST,
+        imageList
     };
 }
 
@@ -192,6 +200,53 @@ function getExplore(userId) {
     };
 }
 
+function searchByTerm(searchTerm) {
+    return async (dispatch, getState) => {
+        const {user: {token}} = getState();
+        const userList = await searchUsers(token, searchTerm);
+        const imageList = await searchImages(token, searchTerm);
+        if (userList === 401 || imageList === 401) {
+            dispatch(logout());
+        }
+        dispatch(setUserList(userList));
+        dispatch(setImageList(imageList));
+    };
+}
+
+function searchUsers(token, searchTerm) {
+    return fetch(`/users/search/?username=${searchTerm}`, {
+        headers: {
+            "Authorization": `JWT ${token}`
+        }
+    })
+        .then(response => {
+            if (response.status === 401) {
+                return 401;
+            }
+            return response.json();
+        })
+        .then(json => {
+            return json;
+        });
+}
+
+function searchImages(token, searchTerm) {
+    return fetch(`/images/search/?hashtags=${searchTerm}`, {
+        headers: {
+            "Authorization": `JWT ${token}`
+        }
+    })
+        .then(response => {
+            if (response.status === 401) {
+                return 401;
+            }
+            return response.json();
+        })
+        .then(json => {
+            return json;
+        });
+}
+
 
 // initial state
 
@@ -210,6 +265,7 @@ const actionCreators = {
     followUser,
     unfollowUser,
     getExplore,
+    searchByTerm,
 };
 
 export {actionCreators};
@@ -240,6 +296,14 @@ function applySetUserList(state, action) {
     };
 }
 
+function applySetImageList(state, action) {
+    const {imageList} = action;
+    return {
+        ...state,
+        imageList
+    };
+}
+
 function applyFollowUser(state, action) {
     const {userId} = action;
     const {userList} = state;
@@ -264,6 +328,7 @@ function applyUnFollowUser(state, action) {
     return {...state, userList: updatedUserList};
 }
 
+
 // reducer
 function reducer(state = initialState, action) {
     switch (action.type) {
@@ -273,6 +338,8 @@ function reducer(state = initialState, action) {
             return applyLogout(state, action);
         case SET_USER_LIST:
             return applySetUserList(state, action);
+        case SET_IMAGE_LIST:
+            return applySetImageList(state, action);
         case FOLLOW_USER:
             return applyFollowUser(state, action);
         case UNFOLLOW_USER:
