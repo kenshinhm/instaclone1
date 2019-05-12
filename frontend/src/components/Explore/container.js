@@ -15,13 +15,7 @@ class Container extends React.Component {
 
     componentDidMount() {
         const {getExplore} = this.props;
-        if (this.props.userList) {
-            this.setState({
-                loading: false,
-            });
-        } else {
-            getExplore();
-        }
+        getExplore();
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
