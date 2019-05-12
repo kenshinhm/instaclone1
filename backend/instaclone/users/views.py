@@ -12,8 +12,9 @@ class ExploreUsers(APIView):
 
     def get(self, request, format=None):
 
-        last_five = models.User.objects.all().order_by('-date_joined')[:5]
-        serializer = serializers.ExploreUserSerializer(last_five, many=True, context={"request": request})
+        # last_five = models.User.objects.all().order_by('-date_joined')[:5]
+        all = models.User.objects.all().order_by('-date_joined')
+        serializer = serializers.ExploreUserSerializer(all, many=True, context={"request": request})
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 

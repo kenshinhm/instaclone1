@@ -141,13 +141,14 @@ function followUser(userId) {
                 Authorization: `JWT ${token}`,
                 "Content-Type": "application/json"
             }
-        }).then(response => {
-            if (response.status === 401) {
-                dispatch(logout());
-            } else if (!response.ok) {
-                dispatch(setUnfollowUser(userId));
-            }
-        });
+        })
+            .then(response => {
+                if (response.status === 401) {
+                    dispatch(logout());
+                } else if (!response.ok) {
+                    dispatch(setUnfollowUser(userId));
+                }
+            });
     };
 }
 
@@ -161,13 +162,33 @@ function unfollowUser(userId) {
                 Authorization: `JWT ${token}`,
                 "Content-Type": "application/json"
             }
-        }).then(response => {
-            if (response.status === 401) {
-                dispatch(logout());
-            } else if (!response.ok) {
-                dispatch(setFollowUser(userId));
+        })
+            .then(response => {
+                if (response.status === 401) {
+                    dispatch(logout());
+                } else if (!response.ok) {
+                    dispatch(setFollowUser(userId));
+                }
+            });
+    };
+}
+
+function getExplore(userId) {
+    return (dispatch, getState) => {
+        const {user: {token}} = getState();
+        fetch(`/users/explore/`, {
+            method: "GET",
+            headers: {
+                Authorization: `JWT ${token}`,
             }
-        });
+        })
+            .then(response => {
+                if (response.status === 401) {
+                    dispatch(logout());
+                }
+                return response.json();
+            })
+            .then(json => dispatch(setUserList(json)));
     };
 }
 
@@ -188,6 +209,7 @@ const actionCreators = {
     getPhotoLikes,
     followUser,
     unfollowUser,
+    getExplore,
 };
 
 export {actionCreators};

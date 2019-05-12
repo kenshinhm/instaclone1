@@ -1,12 +1,12 @@
 import React from 'react';
-import Feed from "./presenter";
+import Explore from "./presenter";
 import * as PropTypes from "prop-types";
 
 class Container extends React.Component {
 
     static propTypes = {
-        getFeed: PropTypes.func.isRequired,
-        feed: PropTypes.array,
+        getExplore: PropTypes.func.isRequired,
+        userList: PropTypes.array
     };
 
     state = {
@@ -14,18 +14,18 @@ class Container extends React.Component {
     };
 
     componentDidMount() {
-        const {getFeed} = this.props;
-        if (this.props.feed) {
+        const {getExplore} = this.props;
+        if (this.props.userList) {
             this.setState({
                 loading: false,
             });
         } else {
-            getFeed();
+            getExplore();
         }
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
-        if (nextProps.feed) {
+        if (nextProps.userList) {
             this.setState({
                 loading: false,
             });
@@ -33,9 +33,9 @@ class Container extends React.Component {
     }
 
     render() {
-        const {feed} = this.props;
+        const {userList} = this.props;
         return (
-            <Feed {...this.state} feed={feed}/>
+            <Explore {...this.state} userList={userList}/>
         );
     }
 }
